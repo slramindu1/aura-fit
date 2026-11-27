@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../auth/widgets/auth_top_bar.dart';
 import 'search_catalog.dart';
 
-/// Modal bottom sheet for recent searches, live suggestions, and empty states.
+/// Full-screen search view with YouTube-style top search bar, history, and live suggestions.
 class SearchModalSheet extends StatefulWidget {
   const SearchModalSheet({
     super.key,
@@ -63,106 +64,81 @@ class _SearchModalSheetState extends State<SearchModalSheet> {
     final isFocusedOrTyping = _focusNode.hasFocus || query.isNotEmpty;
     final suggestions = _matchingSuggestions;
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.88,
-      decoration: const BoxDecoration(
-        color: Color(0xFF141418),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: SafeArea(
-        top: false,
+    return Scaffold(
+      backgroundColor: AppColors.backgroundDark,
+      body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  const SizedBox(width: 28),
-                  const Expanded(
-                    child: Text(
-                      'Search',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
+                  const AuthTopBar(),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Container(
+                      height: 46,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1A1A22),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: isFocusedOrTyping
+                              ? AppColors.primaryYellow
+                              : const Color(0xFF282832),
+                        ),
                       ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    borderRadius: BorderRadius.circular(14),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: Image.asset(
-                        AppAssets.closeIcon,
-                        width: 20,
-                        height: 20,
-                        color: AppColors.textPrimary,
+                      child: TextField(
+                        controller: _controller,
+                        focusNode: _focusNode,
+                        autofocus: true,
+                        textInputAction: TextInputAction.search,
+                        onChanged: (_) => setState(() {}),
+                        onSubmitted: _submit,
+                        style: const TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 14,
+                        ),
+                        cursorColor: AppColors.primaryYellow,
+                        decoration: InputDecoration(
+                          hintText: 'Search Workouts, Programs etc',
+                          hintStyle: TextStyle(
+                            color: AppColors.textSecondary.withValues(alpha: 0.7),
+                            fontSize: 14,
+                          ),
+                          border: InputBorder.none,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(13),
+                            child: Image.asset(
+                              AppAssets.searchIcon,
+                              width: 18,
+                              height: 18,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          suffixIcon: query.isNotEmpty
+                              ? IconButton(
+                                  onPressed: () {
+                                    _controller.clear();
+                                    setState(() {});
+                                  },
+                                  icon: Image.asset(
+                                    AppAssets.clearCircleIcon,
+                                    width: 18,
+                                    height: 18,
+                                    color: AppColors.textPrimary,
+                                  ),
+                                )
+                              : null,
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 12),
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 18),
-              Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1A1A22),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: isFocusedOrTyping
-                        ? AppColors.primaryYellow
-                        : const Color(0xFF282832),
-                  ),
-                ),
-                child: TextField(
-                  controller: _controller,
-                  focusNode: _focusNode,
-                  textInputAction: TextInputAction.search,
-                  onChanged: (_) => setState(() {}),
-                  onSubmitted: _submit,
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
-                    fontSize: 14,
-                  ),
-                  cursorColor: AppColors.primaryYellow,
-                  decoration: InputDecoration(
-                    hintText: 'Search Workouts, Programs etc',
-                    hintStyle: TextStyle(
-                      color: AppColors.textSecondary.withValues(alpha: 0.7),
-                      fontSize: 14,
-                    ),
-                    border: InputBorder.none,
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: Image.asset(
-                        AppAssets.searchIcon,
-                        width: 20,
-                        height: 20,
-                        color: AppColors.textPrimary,
-                      ),
-                    ),
-                    suffixIcon: query.isNotEmpty
-                        ? IconButton(
-                            onPressed: () {
-                              _controller.clear();
-                              setState(() {});
-                            },
-                            icon: Image.asset(
-                              AppAssets.clearCircleIcon,
-                              width: 18,
-                              height: 18,
-                              color: AppColors.textPrimary,
-                            ),
-                          )
-                        : null,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 14),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
               Expanded(
                 child: _buildBody(query, suggestions),
               ),

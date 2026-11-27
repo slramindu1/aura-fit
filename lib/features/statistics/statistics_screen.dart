@@ -197,12 +197,12 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 14),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF17171E),
+                        color: const Color(0xFF161616),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                           color: selected
                               ? AppColors.primaryYellow
-                              : const Color(0xFF282832),
+                              : const Color(0xFF262626),
                           width: 1.2,
                         ),
                       ),
@@ -227,7 +227,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF191920),
+                  color: const Color(0xFF1A1A1A),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -332,7 +332,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF191920),
+                    color: const Color(0xFF1A1A1A),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -459,7 +459,7 @@ class _MonthDropdownPill extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       onSelected: onSelected,
-      color: const Color(0xFF1A1A22),
+      color: const Color(0xFF1A1A1A),
       itemBuilder: (_) => months
           .map(
             (m) => PopupMenuItem<String>(
@@ -478,9 +478,9 @@ class _MonthDropdownPill extends StatelessWidget {
         height: 36,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFF17171E),
+          color: const Color(0xFF161616),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0xFF282832)),
+          border: Border.all(color: const Color(0xFF262626)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -529,9 +529,9 @@ class _SectionCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF141418),
+        color: const Color(0xFF141414),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF22222A)),
+        border: Border.all(color: const Color(0xFF242424)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

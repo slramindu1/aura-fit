@@ -24,10 +24,12 @@ class _BadgeEntry {
   const _BadgeEntry({
     required this.title,
     required this.imagePath,
+    this.isUnlocked = true,
   });
 
   final String title;
   final String imagePath;
+  final bool isUnlocked;
 }
 
 /// Profile tab screen with Workouts history, Badges progress, and Settings access.
@@ -94,7 +96,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _BadgeEntry(title: 'First Rep', imagePath: AppAssets.badge1),
     _BadgeEntry(title: 'Consistency Builder', imagePath: AppAssets.badge2),
     _BadgeEntry(title: 'Strength Milestone', imagePath: AppAssets.badge3),
-    _BadgeEntry(title: 'Iron Dedication', imagePath: AppAssets.badge4),
+    _BadgeEntry(
+      title: 'Iron Dedication',
+      imagePath: AppAssets.badge4,
+      isUnlocked: false,
+    ),
   ];
 
   int _selectedTab = 0; // 0 = Workouts, 1 = Badges
@@ -140,9 +146,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         width: 42,
                         height: 42,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF17171E),
+                          color: const Color(0xFF161616),
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: const Color(0xFF282832)),
+                          border: Border.all(color: const Color(0xFF262626)),
                         ),
                         alignment: Alignment.center,
                         child: Image.asset(
@@ -266,7 +272,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               PopupMenuButton<String>(
                 onSelected: (value) => setState(() => _selectedMonth = value),
-                color: const Color(0xFF1A1A22),
+                color: const Color(0xFF1A1A1A),
                 itemBuilder: (_) => _months
                     .map(
                       (m) => PopupMenuItem<String>(
@@ -285,9 +291,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: 36,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF17171E),
+                    color: const Color(0xFF161616),
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: const Color(0xFF282832)),
+                    border: Border.all(color: const Color(0xFF262626)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -369,105 +375,112 @@ class _ProfileScreenState extends State<ProfileScreen> {
               itemBuilder: (context, index) {
                 final item = _history[index];
                 return Container(
-                  padding: const EdgeInsets.all(10),
+                  clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF17171E),
+                    color: const Color(0xFF141414),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFF282832)),
+                    border: Border.all(color: const Color(0xFF242424)),
                   ),
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          item.imagePath,
-                          width: 72,
-                          height: 72,
-                          fit: BoxFit.cover,
+                  child: IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(
+                          width: 96,
+                          child: Image.asset(
+                            item.imagePath,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item.title,
-                              style: const TextStyle(
-                                color: AppColors.textPrimary,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 10,
                             ),
-                            const SizedBox(height: 6),
-                            Row(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  AppAssets.statCalendar,
-                                  width: 13,
-                                  height: 13,
-                                  color: AppColors.textSecondary
-                                      .withValues(alpha: 0.72),
-                                ),
-                                const SizedBox(width: 6),
                                 Text(
-                                  item.dateText,
-                                  style: TextStyle(
-                                    color: AppColors.textSecondary
-                                        .withValues(alpha: 0.8),
-                                    fontSize: 12,
+                                  item.title,
+                                  style: const TextStyle(
+                                    color: AppColors.textPrimary,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
                                   ),
+                                ),
+                                const SizedBox(height: 6),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      AppAssets.statCalendar,
+                                      width: 13,
+                                      height: 13,
+                                      color: AppColors.textSecondary
+                                          .withValues(alpha: 0.72),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      item.dateText,
+                                      style: TextStyle(
+                                        color: AppColors.textSecondary
+                                            .withValues(alpha: 0.8),
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 6),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      AppAssets.clockIcon,
+                                      width: 13,
+                                      height: 13,
+                                      color: AppColors.textSecondary
+                                          .withValues(alpha: 0.72),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Flexible(
+                                      child: Text(
+                                        item.durationText,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: AppColors.textSecondary
+                                              .withValues(alpha: 0.75),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Image.asset(
+                                      AppAssets.caloriesIcon,
+                                      width: 13,
+                                      height: 13,
+                                      color: AppColors.textSecondary
+                                          .withValues(alpha: 0.72),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Flexible(
+                                      child: Text(
+                                        item.caloriesText,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: AppColors.textSecondary
+                                              .withValues(alpha: 0.75),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 6),
-                            Row(
-                              children: [
-                                Image.asset(
-                                  AppAssets.clockIcon,
-                                  width: 13,
-                                  height: 13,
-                                  color: AppColors.textSecondary
-                                      .withValues(alpha: 0.72),
-                                ),
-                                const SizedBox(width: 4),
-                                Flexible(
-                                  child: Text(
-                                    item.durationText,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: AppColors.textSecondary
-                                          .withValues(alpha: 0.75),
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Image.asset(
-                                  AppAssets.caloriesIcon,
-                                  width: 13,
-                                  height: 13,
-                                  color: AppColors.textSecondary
-                                      .withValues(alpha: 0.72),
-                                ),
-                                const SizedBox(width: 4),
-                                Flexible(
-                                  child: Text(
-                                    item.caloriesText,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: AppColors.textSecondary
-                                          .withValues(alpha: 0.75),
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },
@@ -487,8 +500,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Image.asset(
                 AppAssets.goalMedal,
-                width: 104,
-                height: 104,
+                width: 128,
+                height: 128,
               ),
               const SizedBox(height: 20),
               const Text(
@@ -547,11 +560,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Center(
             child: Image.asset(
               AppAssets.goalMedal,
-              width: 104,
-              height: 104,
+              width: 144,
+              height: 144,
             ),
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 22),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
@@ -579,45 +592,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: const LinearProgressIndicator(
               value: 0.14,
               minHeight: 7,
-              backgroundColor: Color(0xFF34343D),
+              backgroundColor: Color(0xFF2C2C2C),
               valueColor: AlwaysStoppedAnimation<Color>(
                 AppColors.primaryYellow,
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 28),
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _badges.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: 20,
+              mainAxisSpacing: 24,
               crossAxisSpacing: 16,
-              childAspectRatio: 1.05,
+              childAspectRatio: 0.9,
             ),
             itemBuilder: (context, index) {
               final badge = _badges[index];
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    badge.imagePath,
-                    width: 84,
-                    height: 84,
-                    fit: BoxFit.contain,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    badge.title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: AppColors.textPrimary,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+              return Opacity(
+                opacity: badge.isUnlocked ? 1.0 : 0.35,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      badge.imagePath,
+                      width: 118,
+                      height: 118,
+                      fit: BoxFit.contain,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 12),
+                    Text(
+                      badge.title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           ),
@@ -697,7 +713,7 @@ class _ProfileTabButton extends StatelessWidget {
               height: 2,
               color: isSelected
                   ? AppColors.primaryYellow
-                  : const Color(0xFF24242D),
+                  : const Color(0xFF242424),
             ),
           ],
         ),

@@ -555,7 +555,8 @@ void main() {
     );
 
     await tester.tap(find.text('AI Assist'));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
 
     expect(find.byType(AiChatScreen), findsOneWidget);
     expect(find.textContaining('Your personal trainer'), findsOneWidget);
@@ -582,7 +583,7 @@ void main() {
 
     expect(find.text('Can you adjust my weekly program?'), findsOneWidget);
     await tester.pump(const Duration(milliseconds: 700));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 300));
 
     expect(find.textContaining('I reviewed your last 2 weeks'), findsOneWidget);
 
@@ -590,7 +591,8 @@ void main() {
         w is Image &&
         w.image is AssetImage &&
         (w.image as AssetImage).assetName == 'assets/ai/sidebar.png'));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
 
     expect(find.byType(AiChatDrawer), findsOneWidget);
     expect(find.text('RECENT CHATS'), findsOneWidget);

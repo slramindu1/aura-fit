@@ -151,11 +151,11 @@ abstract final class AppAssets {
   static const String profileLogout = 'assets/profile/logout.png';
 
   // Goals & Workout history
-  static const String goalMedal = 'assets/goals/goal.png';
-  static const String badge1 = 'assets/goals/Image.png';
-  static const String badge2 = 'assets/goals/Image-1.png';
-  static const String badge3 = 'assets/goals/Image-2.png';
-  static const String badge4 = 'assets/goals/Image-3.png';
+  static const String goalMedal = 'assets/workout/archivement.png';
+  static const String badge1 = 'assets/workout/first-rep.png';
+  static const String badge2 = 'assets/workout/consistency-builder.png';
+  static const String badge3 = 'assets/workout/strength-rising.png';
+  static const String badge4 = 'assets/workout/iron-dedication.png';
   static const String historyLegDay = 'assets/goals/leg-day.png';
   static const String historyChestDay = 'assets/goals/chest-day.png';
   static const String historyBackDay = 'assets/goals/back-day.png';

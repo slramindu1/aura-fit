@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +34,8 @@ class AiChatScreen extends StatefulWidget {
   State<AiChatScreen> createState() => _AiChatScreenState();
 }
 
-class _AiChatScreenState extends State<AiChatScreen> {
+class _AiChatScreenState extends State<AiChatScreen>
+    with SingleTickerProviderStateMixin {
   static const List<String> _defaultRecentChats = [
     'Can you increase my bench press performance?',
     'I only have half an hour today.',
@@ -56,10 +58,21 @@ class _AiChatScreenState extends State<AiChatScreen> {
   bool _isGenerating = false;
   bool _showAttachments = false;
   Timer? _replyTimer;
+  late final AnimationController _glowController;
+
+  @override
+  void initState() {
+    super.initState();
+    _glowController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    )..forward();
+  }
 
   @override
   void dispose() {
     _replyTimer?.cancel();
+    _glowController.dispose();
     _inputController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -590,16 +603,77 @@ class _AiChatScreenState extends State<AiChatScreen> {
   }
 
   Widget _buildComposer() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
-      decoration: BoxDecoration(
-        color: const Color(0xFF141418),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF282832)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
+    return AnimatedBuilder(
+      animation: _glowController,
+      builder: (context, child) {
+        final t = _glowController.value;
+        final angle = t * 4 * math.pi;
+        final double envelope;
+        if (t < 0.15) {
+          envelope = Curves.easeOut.transform(t / 0.15);
+        } else if (t > 0.75) {
+          envelope = Curves.easeIn.transform((1.0 - t) / 0.25);
+        } else {
+          envelope = 1.0;
+        }
+        final pulse =
+            envelope * (0.75 + 0.25 * math.sin(t * 4 * math.pi).abs());
+
+        return Container(
+          padding: const EdgeInsets.all(1.5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(17),
+            gradient: SweepGradient(
+              transform: GradientRotation(angle),
+              colors: [
+                const Color(0xFF282832),
+                Color.lerp(
+                  const Color(0xFF282832),
+                  Colors.white.withValues(alpha: 0.55),
+                  pulse,
+                )!,
+                Color.lerp(
+                  const Color(0xFF282832),
+                  AppColors.primaryYellow.withValues(alpha: 0.85),
+                  pulse,
+                )!,
+                Color.lerp(
+                  const Color(0xFF282832),
+                  Colors.white.withValues(alpha: 0.55),
+                  pulse,
+                )!,
+                const Color(0xFF282832),
+              ],
+              stops: const [0.0, 0.2, 0.3, 0.4, 0.65],
+            ),
+            boxShadow: [
+              if (pulse > 0.01) ...[
+                BoxShadow(
+                  color: AppColors.primaryYellow.withValues(alpha: 0.2 * pulse),
+                  blurRadius: 18 * pulse,
+                  spreadRadius: 1.5 * pulse,
+                ),
+                BoxShadow(
+                  color: Colors.white.withValues(alpha: 0.08 * pulse),
+                  blurRadius: 12 * pulse,
+                  offset: const Offset(0, -1),
+                ),
+              ],
+            ],
+          ),
+          child: child,
+        );
+      },
+      child: Container(
+        height: 140,
+        padding: const EdgeInsets.fromLTRB(14, 14, 14, 12),
+        decoration: BoxDecoration(
+          color: const Color(0xFF141418),
+          borderRadius: BorderRadius.circular(15.5),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
           Row(
             children: [
               Image.asset(
@@ -702,6 +776,7 @@ class _AiChatScreenState extends State<AiChatScreen> {
           ),
         ],
       ),
+    ),
     );
   }
 }

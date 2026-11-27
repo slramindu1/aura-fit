@@ -104,29 +104,28 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _openSearchModal() {
-    showModalBottomSheet<String>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => SearchModalSheet(
-        recentSearches: _recentSearches,
-        onRemoveRecent: (term) {
-          setState(() => _recentSearches.remove(term));
-        },
-        onSubmitSearch: (query) {
-          setState(() {
-            _recentSearches.remove(query);
-            _recentSearches.insert(0, query);
-          });
-          Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (_) => SearchResultsScreen(
-                initialQuery: query,
-                onWorkoutSelected: _startOrSelectWorkout,
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => SearchModalSheet(
+          recentSearches: _recentSearches,
+          onRemoveRecent: (term) {
+            setState(() => _recentSearches.remove(term));
+          },
+          onSubmitSearch: (query) {
+            setState(() {
+              _recentSearches.remove(query);
+              _recentSearches.insert(0, query);
+            });
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => SearchResultsScreen(
+                  initialQuery: query,
+                  onWorkoutSelected: _startOrSelectWorkout,
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

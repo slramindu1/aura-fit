@@ -107,9 +107,9 @@ class PerformanceIndexChart extends StatelessWidget {
         width: 138,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: const Color(0xFF191920),
+          color: const Color(0xFF1A1A1A),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0xFF2E2E38)),
+          border: Border.all(color: const Color(0xFF2C2C2C)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.45),
@@ -130,7 +130,7 @@ class PerformanceIndexChart extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const Divider(color: Color(0xFF282832), height: 12),
+            const Divider(color: Color(0xFF2A2A2A), height: 12),
             Text(
               '${point.value.toInt()}',
               style: const TextStyle(
@@ -216,9 +216,9 @@ class TrainingVolumeChart extends StatelessWidget {
                       width: 142,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF191920),
+                        color: const Color(0xFF1A1A1A),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: const Color(0xFF2E2E38)),
+                        border: Border.all(color: const Color(0xFF2C2C2C)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withValues(alpha: 0.45),
@@ -239,7 +239,7 @@ class TrainingVolumeChart extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const Divider(color: Color(0xFF282832), height: 12),
+                          const Divider(color: Color(0xFF2A2A2A), height: 12),
                           Text(
                             'Total Workout',
                             style: TextStyle(
@@ -294,7 +294,7 @@ class _AreaLinePainter extends CustomPainter {
     final chartHeight = size.height - topPadding - bottomPadding;
 
     final gridPaint = Paint()
-      ..color = const Color(0xFF2A2A34)
+      ..color = const Color(0xFF2A2A2A)
       ..strokeWidth = 1;
 
     final textPainter = TextPainter(textDirection: ui.TextDirection.ltr);
@@ -411,7 +411,7 @@ class _BarChartPainter extends CustomPainter {
     final chartHeight = size.height - topPadding - bottomPadding;
 
     final gridPaint = Paint()
-      ..color = const Color(0xFF2A2A34)
+      ..color = const Color(0xFF2A2A2A)
       ..strokeWidth = 1;
     final textPainter = TextPainter(textDirection: ui.TextDirection.ltr);
 

@@ -41,9 +41,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
         children: [
           HomeScreen(initialHasActiveWorkout: widget.initialHasActiveWorkout),
           const WorkoutScreen(),
-          AiChatScreen(
-            onBackPressed: () => setState(() => _currentIndex = 0),
-          ),
+          const SizedBox.shrink(),
           StatisticsScreen(
             onBrowseWorkouts: () => setState(() => _currentIndex = 1),
           ),
@@ -73,7 +71,17 @@ class _MainShellScreenState extends State<MainShellScreen> {
 
                 return Expanded(
                   child: InkWell(
-                    onTap: () => setState(() => _currentIndex = index),
+                    onTap: () {
+                      if (index == 2) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (_) => const AiChatScreen(),
+                          ),
+                        );
+                        return;
+                      }
+                      setState(() => _currentIndex = index);
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

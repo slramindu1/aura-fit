@@ -43,9 +43,10 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
           builder: (context, setDialogState) {
             final changed = pendingAvatar != _avatarPath;
             return Dialog(
-              backgroundColor: const Color(0xFF141418),
+              backgroundColor: const Color(0xFF141414),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
+                side: const BorderSide(color: Color(0xFF242424)),
               ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 36, 20, 20),
@@ -153,9 +154,9 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       width: 40,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF17171E),
+                        color: const Color(0xFF161616),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: const Color(0xFF282832)),
+                        border: Border.all(color: const Color(0xFF262626)),
                       ),
                       alignment: Alignment.center,
                       child: Image.asset(
@@ -238,9 +239,9 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                       const SizedBox(height: 8),
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color(0xFF17171E),
+                          color: const Color(0xFF161616),
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: const Color(0xFF282832)),
+                          border: Border.all(color: const Color(0xFF262626)),
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 14),
                         child: Row(
@@ -370,18 +371,18 @@ class _InfoField extends StatelessWidget {
           cursorColor: AppColors.primaryYellow,
           decoration: InputDecoration(
             filled: true,
-            fillColor: const Color(0xFF17171E),
+            fillColor: const Color(0xFF161616),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 16,
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xFF282832)),
+              borderSide: const BorderSide(color: Color(0xFF262626)),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xFF282832)),
+              borderSide: const BorderSide(color: Color(0xFF262626)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -427,16 +428,16 @@ class _DropdownField extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
-            color: const Color(0xFF17171E),
+            color: const Color(0xFF161616),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: const Color(0xFF282832)),
+            border: Border.all(color: const Color(0xFF262626)),
           ),
           child: isEditing
               ? DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: value,
                     isExpanded: true,
-                    dropdownColor: const Color(0xFF1A1A22),
+                    dropdownColor: const Color(0xFF1A1A1A),
                     icon: const Icon(
                       Icons.keyboard_arrow_down,
                       color: AppColors.textPrimary,
