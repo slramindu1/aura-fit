@@ -134,8 +134,8 @@ class SettingsScreen extends StatelessWidget {
               ),
               _SettingsRow(
                 iconPath: AppAssets.profileAccessibility,
-                label: 'Accesibility',
-                onTap: () => _showPlaceholder(context, 'Accesibility'),
+                label: 'Accessibility',
+                onTap: () => _showPlaceholder(context, 'Accessibility'),
               ),
               _SettingsRow(
                 iconPath: AppAssets.profileLogout,

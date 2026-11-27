@@ -116,17 +116,17 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
     _ProgramCardItem(
       title: 'Built Different',
       imagePath: AppAssets.bookmarkProg1,
-      scheduleLabel: '3 Workout / Week',
+      scheduleLabel: '3 Workouts / Week',
     ),
     _ProgramCardItem(
       title: 'Easy Training',
       imagePath: AppAssets.bookmarkProg2,
-      scheduleLabel: '2 Workout / Week',
+      scheduleLabel: '2 Workouts / Week',
     ),
     _ProgramCardItem(
       title: 'Build the Basics',
       imagePath: AppAssets.bookmarkProg3,
-      scheduleLabel: '3 Workout / Week',
+      scheduleLabel: '3 Workouts / Week',
     ),
   ];
 
@@ -134,12 +134,12 @@ class _MyBookmarkScreenState extends State<MyBookmarkScreen> {
     _ProgramCardItem(
       title: 'Upper Focus',
       imagePath: AppAssets.bookmarkProg4,
-      scheduleLabel: '4 Workout / Week',
+      scheduleLabel: '4 Workouts / Week',
     ),
     _ProgramCardItem(
       title: 'Upper Focus',
       imagePath: AppAssets.bookmarkProg5,
-      scheduleLabel: '3 Workout / Week',
+      scheduleLabel: '3 Workouts / Week',
     ),
   ];
 

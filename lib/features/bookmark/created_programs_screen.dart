@@ -211,9 +211,7 @@ class _CreatedProgramsScreenState extends State<CreatedProgramsScreen> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    prog.workoutsCount == 2
-                                        ? '2 Workout'
-                                        : '${prog.workoutsCount} Workouts',
+                                    '${prog.workoutsCount} ${prog.workoutsCount == 1 ? 'Workout' : 'Workouts'}',
                                     style: TextStyle(
                                       color: AppColors.textSecondary.withValues(
                                         alpha: 0.72,

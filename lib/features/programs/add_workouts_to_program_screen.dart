@@ -206,7 +206,7 @@ class _AddWorkoutsToProgramScreenState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Suggesteds Workouts',
+                            'Suggested Workouts',
                             style: TextStyle(
                               color: AppColors.textPrimary,
                               fontSize: 16,

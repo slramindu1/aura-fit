@@ -394,95 +394,118 @@ class _WorkoutFeedbackScreenState extends State<WorkoutFeedbackScreen> {
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: InkWell(
-                  onTap: () => Navigator.of(context).maybePop(),
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF17171E),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: const Color(0xFF282832)),
-                    ),
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      AppAssets.closeIcon,
-                      width: 18,
-                      height: 18,
-                      color: AppColors.textPrimary,
-                    ),
+              Expanded(
+                child: SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () => Navigator.of(context).maybePop(),
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF17171E),
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: const Color(0xFF282832)),
+                            ),
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              AppAssets.closeIcon,
+                              width: 18,
+                              height: 18,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      const Text(
+                        'You Nailed it !',
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 26),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _ShareStatColumn(
+                            label: 'Calorie Burn',
+                            value: '320 kcal',
+                          ),
+                          _ShareStatColumn(
+                            label: 'Total time',
+                            value: '40 :32',
+                          ),
+                          _ShareStatColumn(label: 'Exercise', value: '4'),
+                        ],
+                      ),
+                      const SizedBox(height: 28),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(5, (index) {
+                          final filled = index < _rating;
+                          return IconButton(
+                            onPressed: () =>
+                                setState(() => _rating = index + 1),
+                            icon: Icon(
+                              Icons.star_rounded,
+                              size: 38,
+                              color: filled
+                                  ? AppColors.primaryYellow
+                                  : AppColors.primaryYellow.withValues(
+                                      alpha: 0.38,
+                                    ),
+                            ),
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 22),
+                      TextField(
+                        controller: _commentController,
+                        maxLines: 5,
+                        onChanged: (_) => setState(() {}),
+                        style: const TextStyle(
+                          color: AppColors.textPrimary,
+                          fontSize: 14,
+                        ),
+                        cursorColor: AppColors.primaryYellow,
+                        decoration: InputDecoration(
+                          hintText: 'Add Comments',
+                          hintStyle: TextStyle(
+                            color: AppColors.textSecondary.withValues(
+                              alpha: 0.65,
+                            ),
+                            fontSize: 14,
+                          ),
+                          filled: true,
+                          fillColor: const Color(0xFF17171E),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(
+                              color: Color(0xFF282832),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(
+                              color: AppColors.primaryYellow,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
-              const Text(
-                'You Nailed it !',
-                style: TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 26,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 26),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _ShareStatColumn(label: 'Calorie Burn', value: '320 kcal'),
-                  _ShareStatColumn(label: 'Total time', value: '40 :32'),
-                  _ShareStatColumn(label: 'Exercise', value: '4'),
-                ],
-              ),
-              const SizedBox(height: 28),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(5, (index) {
-                  final filled = index < _rating;
-                  return IconButton(
-                    onPressed: () => setState(() => _rating = index + 1),
-                    icon: Icon(
-                      Icons.star_rounded,
-                      size: 38,
-                      color: filled
-                          ? AppColors.primaryYellow
-                          : AppColors.primaryYellow.withValues(alpha: 0.38),
-                    ),
-                  );
-                }),
-              ),
-              const SizedBox(height: 22),
-              TextField(
-                controller: _commentController,
-                maxLines: 5,
-                onChanged: (_) => setState(() {}),
-                style: const TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 14,
-                ),
-                cursorColor: AppColors.primaryYellow,
-                decoration: InputDecoration(
-                  hintText: 'Add Comments',
-                  hintStyle: TextStyle(
-                    color: AppColors.textSecondary.withValues(alpha: 0.65),
-                    fontSize: 14,
-                  ),
-                  filled: true,
-                  fillColor: const Color(0xFF17171E),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Color(0xFF282832)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                      color: AppColors.primaryYellow,
-                    ),
-                  ),
-                ),
-              ),
-              const Spacer(),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: canSubmit
                     ? () {

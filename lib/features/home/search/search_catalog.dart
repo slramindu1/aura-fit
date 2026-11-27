@@ -12,7 +12,7 @@ abstract final class SearchCatalog {
     'Push Day',
     'Full Body Push',
     'Leg Push',
-    'Push Hyperthropy',
+    'Push Hypertrophy',
     'Push Intensity',
     'Upper Body Strength',
     'Lower Body Power',
@@ -55,7 +55,7 @@ abstract final class SearchCatalog {
     ),
     WorkoutItem(
       id: 'push_hypertrophy',
-      title: 'Push Hyperthropy',
+      title: 'Push Hypertrophy',
       imagePath: AppAssets.searchResultHypertrophy,
       category: 'Chest',
       durationMinutes: 45,

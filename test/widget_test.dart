@@ -336,7 +336,7 @@ void main() {
 
     expect(find.text('3'), findsOneWidget);
     expect(find.text('Push Day'), findsOneWidget);
-    expect(find.text('Push Hyperthropy'), findsOneWidget);
+    expect(find.text('Push Hypertrophy'), findsOneWidget);
     expect(find.text('Leg Push'), findsNothing);
   });
 
@@ -439,7 +439,7 @@ void main() {
     await tester.tap(find.text('Save'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Save to “Built Different”'), findsOneWidget);
+    expect(find.text('Saved to “Built Different”'), findsOneWidget);
 
     await tester.tap(find.byWidgetPredicate((w) =>
         w is Image &&

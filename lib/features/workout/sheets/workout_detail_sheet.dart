@@ -107,7 +107,7 @@ class _WorkoutDetailSheetState extends State<WorkoutDetailSheet> {
     );
     if (selected != null && mounted) {
       setState(() => _savedProgramName = selected.title);
-      _showToast('Save to “${selected.title}”');
+      _showToast('Saved to “${selected.title}”');
     }
   }
 
